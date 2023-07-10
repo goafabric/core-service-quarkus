@@ -2,7 +2,6 @@ package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.data.repository.extensions.AuditListener;
-import org.hibernate.annotations.TenantId;
 
 import java.time.LocalDate;
 
@@ -14,7 +13,7 @@ public class PatientEo {
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
-    @TenantId
+    //@TenantId
     public String orgunitId;
 
     public String givenName;

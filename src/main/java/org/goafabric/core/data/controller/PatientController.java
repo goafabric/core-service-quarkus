@@ -1,6 +1,5 @@
 package org.goafabric.core.data.controller;
 
-import com.oracle.svm.core.annotate.Delete;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -18,7 +17,7 @@ public class PatientController {
         this.logic = logic;
     }
 
-    @Delete
+    @DELETE
     @Path("deleteById/{id}")
     public void deleteById(@PathParam("id") String id) {
         logic.deleteById(id);
