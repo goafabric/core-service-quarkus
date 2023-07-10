@@ -9,7 +9,7 @@ import org.goafabric.core.data.logic.PractitionerLogic;
 
 import java.util.List;
 
-@Path("/patients")
+@Path("/practitioners")
 @Produces(MediaType.APPLICATION_JSON)
 public class PractitionerController {
     private final PractitionerLogic logic;
