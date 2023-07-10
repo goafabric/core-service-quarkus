@@ -3,3 +3,4 @@
 - authentication
 - demodata
 - orgunit
+- s3
