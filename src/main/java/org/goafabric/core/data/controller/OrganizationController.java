@@ -31,7 +31,7 @@ public class OrganizationController {
 
     @GET
     @Path("findByName")
-    public List<Organization> findByName(@PathParam("name") String name) {
+    public List<Organization> findByName(@QueryParam("name") String name) {
         return logic.findByName(name);
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 public class PatientRepository implements PanacheRepositoryBase<PatientEo, String> {
 
     public List<PatientEo> findByGivenNameStartsWithIgnoreCase(String givenName) {
+        //return findAll().list();
         return find("givenName", givenName).list();
     }
 

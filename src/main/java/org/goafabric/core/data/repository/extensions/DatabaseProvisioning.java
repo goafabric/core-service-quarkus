@@ -44,6 +44,8 @@ public class DatabaseProvisioning implements Runnable {
 
 
     public void run() {
+        CDI.current().select(TenantResolver.SchemaCreator.class).get().run();
+
         if (goals.contains("-import-demo-data")) {
             log.info("Importing demo data ...");
             importDemoData();

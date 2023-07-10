@@ -7,8 +7,10 @@ import io.quarkus.security.spi.runtime.AuthorizationController;
 import jakarta.annotation.Priority;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.interceptor.Interceptor;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.goafabric.core.data.repository.extensions.DatabaseProvisioning;
 
 @QuarkusMain
 public class Application {
@@ -20,7 +22,7 @@ public class Application {
     public static class MyApp implements QuarkusApplication {
         @Override
         public int run(String... args) throws Exception {
-            //CDI.current().select(DatabaseProvisioning.class).get().run();
+            CDI.current().select(DatabaseProvisioning.class).get().run();
             Quarkus.waitForExit();
             return 0;
         }

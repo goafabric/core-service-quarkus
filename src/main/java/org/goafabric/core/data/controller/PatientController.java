@@ -31,13 +31,13 @@ public class PatientController {
 
     @GET
     @Path("findByGivenName")
-    public List<Patient> findByGivenName(@PathParam("givenName") String givenName) {
+    public List<Patient> findByGivenName(@QueryParam("givenName") String givenName) {
         return logic.findByGivenName(givenName);
     }
 
     @GET
     @Path("findByFamilyName")
-    public List<Patient> findByFamilyName(@PathParam("familyName") String familyName) {
+    public List<Patient> findByFamilyName(@QueryParam("familyName") String familyName) {
         return logic.findByFamilyName(familyName);
     }
 

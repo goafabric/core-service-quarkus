@@ -1,5 +1,6 @@
 package org.goafabric.core.data.repository.extensions;
 
+import io.quarkus.arc.Arc;
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
@@ -16,7 +17,8 @@ import java.util.Map;
 @PersistenceUnitExtension
 @RequestScoped
 public class TenantResolver implements io.quarkus.hibernate.orm.runtime.tenant.TenantResolver {
-    @Inject FlywayConfig flywayConfig;
+    @Inject
+    SchemaCreator schemaCreator;
 
     @ConfigProperty(name = "multi-tenancy.schema-prefix") String schemaPrefix;
 
@@ -31,8 +33,11 @@ public class TenantResolver implements io.quarkus.hibernate.orm.runtime.tenant.T
     }
 
     @ApplicationScoped
-    static class FlywayConfig {
-        public FlywayConfig() {
+    public static class SchemaCreator implements Runnable {
+
+        @Override
+        public void run() {
+            Arc.container().requestContext().activate();
             if (ConfigProvider.getConfig().getValue("multi-tenancy.migration.enabled", Boolean.class)) {
                 final Flyway flyway = CDI.current().select(Flyway.class).get();
                 final String schemas = ConfigProvider.getConfig().getValue("multi-tenancy.tenants", String.class);
