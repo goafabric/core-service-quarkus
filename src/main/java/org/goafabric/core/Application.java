@@ -1,6 +1,7 @@
 package org.goafabric.core;
 
 import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.security.spi.runtime.AuthorizationController;
 import jakarta.annotation.Priority;
@@ -13,7 +14,16 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class Application {
 
     public static void main(String... args) {
-        Quarkus.run(args);
+        Quarkus.run(MyApp.class, args);
+    }
+
+    public static class MyApp implements QuarkusApplication {
+        @Override
+        public int run(String... args) throws Exception {
+            //CDI.current().select(DatabaseProvisioning.class).get().run();
+            Quarkus.waitForExit();
+            return 0;
+        }
     }
 
     @Alternative
