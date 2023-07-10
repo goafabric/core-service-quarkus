@@ -1,6 +1,7 @@
 package org.goafabric.core.data.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.goafabric.core.data.repository.entity.PatientEo;
 
@@ -10,12 +11,15 @@ import java.util.List;
 public class PatientRepository implements PanacheRepositoryBase<PatientEo, String> {
 
     public List<PatientEo> findByGivenNameStartsWithIgnoreCase(String givenName) {
-        //return findAll().list();
-        return find("givenName", givenName).list();
+        return find("givenName like concat('%', :givenName, '%')",
+                Parameters.with("givenName", givenName)
+                        .map()).list();
     }
 
     public List<PatientEo> findByFamilyNameStartsWithIgnoreCase(String familyName) {
-        return find("familyName", familyName).list();
+        return find("familyName like concat('%', :familyName, '%')",
+                Parameters.with("familyName", familyName)
+                        .map()).list();
     }
 
     public PatientEo save(PatientEo person) {
