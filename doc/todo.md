@@ -1,6 +1,5 @@
 - openapi endpoint
 - fhir controller
 - authentication
-- compose files
 - demodata
 - orgunit
