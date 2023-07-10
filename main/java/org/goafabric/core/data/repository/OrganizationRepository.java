@@ -1,16 +1,22 @@
 package org.goafabric.core.data.repository;
 
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.goafabric.core.data.repository.entity.OrganizationEo;
 
 import java.util.List;
 
-public interface OrganizationRepository  {
-    List<OrganizationEo> findByNameStartsWithIgnoreCase(String name);
+@ApplicationScoped
+public class OrganizationRepository implements PanacheRepositoryBase<OrganizationEo, String> {
 
-    void deleteById(String id);
+    public List<OrganizationEo> findByNameStartsWithIgnoreCase(String name) {
+        return find("name", name).list();
+    }
 
-    OrganizationEo save(OrganizationEo map);
+    public OrganizationEo save(OrganizationEo person) {
+        persist(person);
+        return person;
+    }
 
-    OrganizationEo findById(String id);
 }
 
