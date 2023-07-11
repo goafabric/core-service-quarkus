@@ -1,5 +1,5 @@
 - openapi endpoint
-- otel
+- otel https://quarkus.io/guides/opentelemetry
 - authentication
 - orgunit
 
