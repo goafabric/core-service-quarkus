@@ -1,5 +1,5 @@
 - openapi endpoint
-- otel https://quarkus.io/guides/opentelemetry
+- tenantId for logging and tracing
 - authentication
 - orgunit
 

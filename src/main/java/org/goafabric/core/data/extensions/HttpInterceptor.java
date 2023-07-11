@@ -1,40 +1,52 @@
 package org.goafabric.core.data.extensions;
 
-import io.quarkus.security.identity.SecurityIdentity;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ContainerResponseContext;
-import jakarta.ws.rs.container.ContainerResponseFilter;
-import jakarta.ws.rs.ext.Provider;
+import io.micrometer.common.KeyValue;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.ServerHttpObservationFilter;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.io.IOException;
 
-@Provider
-public class HttpInterceptor implements ContainerRequestFilter, ContainerResponseFilter {
-    private final SecurityIdentity securityIdentity;
-
-    public HttpInterceptor(SecurityIdentity securityIdentity) {
-        this.securityIdentity = securityIdentity;
-    }
-
+public class HttpInterceptor implements HandlerInterceptor {
+    private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
-    private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
-    @Override
-    public void filter(ContainerRequestContext request) throws IOException {
-        tenantId.set(request.getHeaderString("X-TenantId"));
-        userName.set(request.getHeaderString("X-Auth-Request-Preferred-Username") != null ? request.getHeaderString("X-Auth-Request-Preferred-Username")
-                :  securityIdentity != null ? securityIdentity.getPrincipal().getName() : "");
+    @Configuration
+    static class Configurer implements WebMvcConfigurer {
+        @Override
+        public void addInterceptors(InterceptorRegistry registry) {
+            registry.addInterceptor(new HttpInterceptor());
+        }
     }
 
     @Override
-    public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        tenantId.set(request.getHeader("X-TenantId"));
+        configureLogsAndTracing(request);
+        if (handler instanceof HandlerMethod) {
+            log.info(" {} method called for user {} ", ((HandlerMethod) handler).getShortLogMessage(), getUserName());
+        }
+        return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         tenantId.remove();
-        userName.remove();
+        MDC.remove("tenantId");
     }
 
-    public static void setTenantId(String tenantId) {
-        HttpInterceptor.tenantId.set(tenantId);
+    private static void configureLogsAndTracing(HttpServletRequest request) {
+        MDC.put("tenantId", getTenantId());
+        ServerHttpObservationFilter.findObservationContext(request).ifPresent(
+                context -> context.addHighCardinalityKeyValue(KeyValue.of("tenant.id", getTenantId())));
     }
 
     public static String getTenantId() {
@@ -42,7 +54,10 @@ public class HttpInterceptor implements ContainerRequestFilter, ContainerRespons
     }
 
     public static String getUserName() {
-        return userName.get();
+        return SecurityContextHolder.getContext().getAuthentication() != null ? SecurityContextHolder.getContext().getAuthentication().getName() : "";
     }
 
+    public static void setTenantId(String tenant) {
+        tenantId.set(tenant);
+    }
 }
