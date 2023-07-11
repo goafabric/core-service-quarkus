@@ -47,7 +47,7 @@ public class AuditListener {
 
     @PostLoad
     public void afterRead(Object object) {
-        insertAudit(DbOperation.READ, getId(object), object, object);
+        //insertAudit(DbOperation.READ, getId(object), object, object);
     }
 
     @PostPersist
