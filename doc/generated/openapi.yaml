@@ -1641,7 +1641,7 @@ paths:
       - User Controller
 info:
   title: core-service API
-  version: 1.0.1-SNAPSHOT
+  version: 1.0.2
 servers:
 - url: http://localhost:50800
   description: Auto generated value
