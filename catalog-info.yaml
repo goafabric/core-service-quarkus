@@ -1,30 +1,30 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: core-service
+  name: core-service-quarkus
   description: |
     Core Service responsible for core application logic
     
     [![ArgoCD Status](https://v2202402203466256255.megasrv.de/argocd/api/badge?name=core-application&revision=false)](https://v2202402203466256255.megasrv.de/argocd/applications/core-application)
 
-    [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service)
-    [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service)
+    [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service-quarkus-quarkus&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service-quarkus-quarkus)
+    [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service-quarkus-quarkus&metric=coverage)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service-quarkus-quarkus)
     
-    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service)
-    [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service)
-    [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service)    
+    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service-quarkus-quarkus&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service-quarkus-quarkus)
+    [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service-quarkus-quarkus&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service-quarkus-quarkus)
+    [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.goafabric%3Acore-service-quarkus-quarkus&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=org.goafabric%3Acore-service-quarkus-quarkus)    
   tags:
     - spring-boot
     - microservice
   annotations:
-    github.com/project-slug: goafabric/core-service
-    github.com/actions: goafabric/core-service
+    github.com/project-slug: goafabric/core-service-quarkus
+    github.com/actions: goafabric/core-service-quarkus
     argocd/app-name: core-application
     backstage.io/adr-location: https://github.com/goafabric/backstage/tree/develop/catalog/adr/core-service
 #    kiali.io/provider: default
 #    kiali.io/namespace: core
   links:
-    - url: https://github.com/goafabric/core-service
+    - url: https://github.com/goafabric/core-service-quarkus
       title: GitHub Repository
     - url: https://v2202402203466256255.megasrv.de/core/
       title: Service URL
@@ -51,13 +51,13 @@ metadata:
   description: OpenAPI definition for Core Service.
   tags:
     - openapi
-    - core-service
+    - core-service-quarkus
 spec:
   type: openapi
   lifecycle: production
   owner: team-blue
   definition:
-    $text: https://github.com/goafabric/core-service/blob/develop/doc/generated/openapi.json
+    $text: https://github.com/goafabric/core-service-quarkus/blob/develop/doc/generated/openapi.json
 
 
 ---
@@ -69,7 +69,7 @@ metadata:
   description: Organization Topic
   tags:
     - kafka-topic
-    - core-service
+    - core-service-quarkus
 spec:
   type: kafka-topic
   lifecycle: production
@@ -88,7 +88,7 @@ metadata:
   description: Practitioner Topic
   tags:
     - kafka-topic
-    - core-service
+    - core-service-quarkus
 spec:
   type: kafka-topic
   lifecycle: production
