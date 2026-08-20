@@ -69,7 +69,7 @@ dependencies {
 	kapt("org.hibernate.orm:hibernate-processor")
 
 	//adapter
-	implementation("io.quarkus:quarkus-rest-client-jackson")
+	implementation("io.quarkus:quarkus-resteasy-client-jackson")
 	implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
 	//jib
