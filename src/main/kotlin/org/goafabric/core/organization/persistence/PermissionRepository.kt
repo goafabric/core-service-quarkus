@@ -1,10 +1,10 @@
 package org.goafabric.core.organization.persistence
 
-import io.quarkus.hibernate.panache.PanacheRepository
+import io.quarkus.data.hibernate.ManagedRepository
 import jakarta.data.repository.Query
 import org.goafabric.core.organization.persistence.entity.PermissionEo
 
-interface PermissionRepository : PanacheRepository.Managed<PermissionEo, String> {
+interface PermissionRepository : ManagedRepository.CustomId<PermissionEo, String> {
     @Query("SELECT p FROM PermissionEo p")
     fun findAllPermissions(): List<PermissionEo>
 

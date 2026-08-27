@@ -1,11 +1,11 @@
 package org.goafabric.core.organization.persistence
 
-import io.quarkus.hibernate.panache.PanacheRepository
+import io.quarkus.data.hibernate.ManagedRepository
 import jakarta.data.repository.Find
 import jakarta.data.repository.Query
 import org.goafabric.core.organization.persistence.entity.UserEo
 
-interface UserRepository : PanacheRepository.Managed<UserEo, String> {
+interface UserRepository : ManagedRepository.CustomId<UserEo, String> {
     @Find
     fun findByName(name: String): List<UserEo>
 

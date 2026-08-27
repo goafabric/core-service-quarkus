@@ -1,10 +1,10 @@
 package org.goafabric.core.organization.persistence
 
-import io.quarkus.hibernate.panache.PanacheRepository
+import io.quarkus.data.hibernate.ManagedRepository
 import jakarta.data.repository.Query
 import org.goafabric.core.organization.persistence.entity.PatientEo
 
-interface PatientRepository : PanacheRepository.Managed<PatientEo, String> {
+interface PatientRepository : ManagedRepository.CustomId<PatientEo, String> {
     @Query("SELECT p FROM PatientEo p WHERE p.givenName LIKE CONCAT(:givenName, '%')")
     fun findByGivenNameStartsWith(givenName: String): List<PatientEo>
 

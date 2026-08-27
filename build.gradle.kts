@@ -10,7 +10,7 @@ val dockerRegistry = "goafabric"
 plugins {
 	java
 	jacoco
-	id("io.quarkus") version "3.38.3"
+	id("io.quarkus") version "3.39.1"
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "7.4.0.8496"
 
@@ -38,8 +38,8 @@ dependencies {
 		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
 
-	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.39.0"))
-	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.39.0"))
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.39.1"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.39.1"))
 }
 dependencies {
 	//web
@@ -66,7 +66,7 @@ dependencies {
 	//jakarta data
 	implementation("io.quarkus:quarkus-data-hibernate")
 	implementation("jakarta.data:jakarta.data-api")
-	kapt("org.hibernate.orm:hibernate-processor")
+	kapt("io.quarkus:quarkus-data-processor")
 
 	//adapter
 	implementation("io.quarkus:quarkus-rest-client-jackson")

@@ -1,11 +1,11 @@
 package org.goafabric.core.organization.persistence
 
-import io.quarkus.hibernate.panache.PanacheRepository
+import io.quarkus.data.hibernate.ManagedRepository
 import jakarta.data.repository.Find
 import org.goafabric.core.organization.persistence.entity.LockEo
-import java.util.Optional
+import java.util.*
 
-interface LockRepository : PanacheRepository.Managed<LockEo, String> {
+interface LockRepository : ManagedRepository.CustomId<LockEo, String> {
     @Find
     fun findByLockKey(lockKey: String): Optional<LockEo>
 
