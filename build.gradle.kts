@@ -103,6 +103,9 @@ dependencies {
 	testImplementation("org.mockito.kotlin:mockito-kotlin")
 	testImplementation("io.quarkus:quarkus-junit-mockito")
 
+	// RestAssured still uses Jackson 2 internally and needs the Java 8 date/time module for DTOs
+	testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
 	testImplementation("io.quarkus:quarkus-test-kafka-companion")
 
 	testImplementation("org.testcontainers:testcontainers-postgresql")
